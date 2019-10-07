@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Order History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var dates = ViewBag.dates as List<string>;
+    var names = ViewBag.names as List<string>;
+    var prices = ViewBag.prices as List<double>;
+    var quantities = ViewBag.quantities as List<int>;
+    var images = ViewBag.images as List<string>;
+    var activationCodes = ViewBag.activationCodes as List<string>;
+}
+
+<h2>OrderHistory</h2>
+<table class="table">
+    <tr>
+        <th>Purchase Date</th>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Activation Codes</th>
+    </tr>
+    @for (int i = 0; i < dates.Count; i++)
+    {
+        <tr>
+            <td>@dates[i]</td>
+            <td>@names[i]</td>
+            <td><img src="@images[i]" class="img-thumbnail" width="70" height="70" /></td>
+            <td>$@prices[i]</td>
+            <td>@quantities[i]</td>
+            @{ 
+                List<string> codes = activationCodes[i].Split(',').ToList();
+                if (codes.Count == 1)
+                {
+                    <td>@codes[0]</td>
+                }
+                else if (codes.Count > 1)   
+                {
+                    <td>@Html.DropDownList("ActivationCodes", new SelectList(codes))</td>
+                }
+             }
+        </tr>
+    }
+    
+</table>
+

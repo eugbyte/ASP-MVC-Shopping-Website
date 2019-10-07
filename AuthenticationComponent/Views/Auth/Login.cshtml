@@ -1,0 +1,32 @@
+﻿@model AuthenticationComponent.Models.User
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string errorMessage = ViewBag.loginErrorMessage as string;
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("Login", "Auth", FormMethod.Post))
+{
+    //Username
+<div class="form-group">
+    @Html.LabelFor(user => user.Username)
+    @Html.TextBoxFor(user => user.Username, new { @class = "form-control" })
+    @Html.ValidationMessageFor(user => user.Username, "", new { @class = "text-danger" })
+</div>
+
+    //Password
+<div class="form-group">
+    @Html.LabelFor(user => user.Password)
+    @Html.PasswordFor(user => user.Password, new { @class = "form-control" })
+    @Html.ValidationMessageFor(user => user.Password, "", new { @class = "text-danger" })
+</div>
+
+        //Submit
+    <input type="submit" value="Login" class="btn btn-primary" />
+
+    <p class="text-danger">@errorMessage</p>
+
+}
+

@@ -1,0 +1,82 @@
+﻿@using AuthenticationComponent.Models;
+@{
+    ViewBag.Title = "HomePage";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    var products = ViewData["products"] as List<Product>;
+    if (Session["isAuth"] == null)
+    {
+        Session["isAuth"] = false;
+    }
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    .cart {
+        margin-top: 10px;
+        font-size:16px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-sm-8">
+        <h2>View Products</h2>
+        @if (Session["username"] != null)
+        {
+            string username = Session["username"] as string;
+            <h4>Hello @username</h4>
+        }
+    </div>
+    <div class="cart text-right col-sm-4">
+        @if ((bool)Session["isAuth"])
+        {
+            <p>
+                <a href="/Cart/ViewCart"><i style="font-size:24px" class="fa">&#xf07a;</i></a> 
+                <b>@ViewBag.count</b>
+            </p>
+            @Html.ActionLink("Go to cart", "ViewCart", "Cart", null, new { @class = "btn btn-success" });
+
+        }
+    </div>
+    
+</div>
+<hr />
+
+<table class="table" id="datatable">
+    <tr>
+        <th>Product Name</th>
+        <th>Product Price</th>
+        <th>Product Description</th>
+        <th>Image</th>
+        @if ((bool)Session["isAuth"])
+        {
+            <th>Add to Cart</th>
+        }
+    </tr>
+    @foreach (var product in products)
+    {
+        <tr>
+            <td>@product.Name</td>
+            <td>$@product.Price</td>
+            <td>@product.Description</td>
+            <td><img src="@product.Image" class="img-thumbnail" width="100" height="100" /></td>
+
+            @if ((bool)Session["isAuth"])
+            {
+                <td>@Html.ActionLink("Add to cart", "AddToCart", "Gallery", new { productId = product.Id }, null)</td>
+            }
+        </tr>
+    }
+</table>
+
+<link rel="stylesheet" type="text/css" href="~/Content/vanilla-dataTables.css">
+<script src="~/Scripts/vanilla-dataTables.js"></script>
+<script>
+    var dataTable = new DataTable("#datatable");
+    
+
+</script>
+
+
+
+
+

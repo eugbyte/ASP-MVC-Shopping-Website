@@ -1,0 +1,31 @@
+﻿@model AuthenticationComponent.Models.Product
+@{
+    ViewBag.Title = "Add Product";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add Product</h2>
+
+@using (Html.BeginForm("AddProduct", "Admin", FormMethod.Post, new { enctype="multipart/form-data" } ))
+{
+    <div class="form-group">
+        @Html.LabelFor(p => p.Name)
+        @Html.TextBoxFor(p => p.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor( p => p.Name, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(p => p.Price)
+        @Html.TextBoxFor(p => p.Price, new { @class = "form-control" })
+        @Html.ValidationMessageFor(p => p.Price, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(p => p.Description)
+        @Html.TextBoxFor(p => p.Description, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(p => p.Image)
+        @Html.TextBoxFor(p => p.Image, new { @class = "btn", type="file"})
+    </div>
+    <input type="submit" value="Submit" />
+}
+

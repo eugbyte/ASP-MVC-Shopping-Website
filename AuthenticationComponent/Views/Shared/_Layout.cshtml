@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @{
+        if (Session["isAuth"] == null)
+        {
+            Session["isAuth"] = false;
+        }
+        if (Session["isAdmin"] == null)
+        {
+            Session["isAdmin"] = false;
+        }
+    }
+
+    <style>
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 7rem;            /* Footer height */
+            background-color: #2F374C;
+        }
+
+        body {
+            position: relative;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #2F374C">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Home", "Index", "Gallery", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse" style="float: right;">
+                <ul class="nav navbar-nav">
+                    @if ((bool)Session["isAuth"])
+                    {
+                        <li>@Html.ActionLink("Purchases", "OrderHistory", "Checkout")</li>
+                        <li>@Html.ActionLink("Logout", "Logout", "Auth")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Login", "Index", "Auth")</li>
+                    }
+
+                </ul>
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if ((bool)Session["isAdmin"])
+                    {
+                        <li>@Html.ActionLink("Add Product", "AddProduct", "Admin")</li>
+                    }
+
+                    
+                     
+                </ul>
+            </div>
+
+
+
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+
+    <footer class="footer text-center bg-info">
+        <p class="text-white" style="color: white">&copy;@DateTime.Now.Year - Team 5A</p>
+        <p>@Html.ActionLink("Contact Us", "ContactForm", "ContactUs", null, new { style = "color:#7FFF00; text-decoration: underline;", role="button" })</p>
+    </footer>
+
+</body>
+
+
+
+
+</html>

@@ -1,0 +1,82 @@
+﻿@using AuthenticationComponent.Models;
+@{
+    ViewBag.Title = "View Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var checkoutDict = ViewBag.checkoutDict as Dictionary<string, List<Product>>;
+    var total = Convert.ToInt32(ViewBag.total);
+}
+
+<div class="row">
+    <h2>Shopping Cart</h2>
+    
+</div>
+
+
+<form method="post" action="~/Checkout/ProcessOrder">
+    <div class="row">
+        @foreach (var keyValuePair in checkoutDict)
+        {
+            <div class="col-sm-4 form-group" id="cart-body">
+                <div class="form-group">
+                    @{Product product = keyValuePair.Value[0];}
+                    <p><b>@product.Name</b></p>
+                    <img src="@product.Image" class="img-thumbnail" width="100" height="100" style="margin-bottom : 5px" />
+
+                    <p>@product.Description</p>
+                    <p>$@product.Price</p>
+                </div>
+
+                <div class="form-group">
+                    <input name="quantities" type="number" min="0" max="10" value=@keyValuePair.Value.Count() class="form-control" id=@product.Id />
+                </div>
+
+                <div class="form-group" style="display: none">
+                    <input name="productIds" value=@product.Id />
+                </div>
+
+            </div>
+        }
+    </div>
+    <div class="row">
+        <p class="text-right" style="font-size: 16px">
+            <b>Total</b>
+            <br>
+            $@total
+        </p>
+        <text class="col-sm-5"><!--To center the button--></text>
+
+        <div class="col-sm-6">
+            @if (checkoutDict.Count > 0)
+            {
+                <input type="submit" value="Confirm purchase" name="Submit" class="col-sm-4 btn btn-success" />
+                <br />
+            }
+        </div>
+    </div>
+    <div class="row">
+        <text class="col-sm-5"><!--To center the button--></text>
+        @Html.ActionLink("Continue shopping", "Index", "Gallery", null, new { @class = "btn", style = "display:block" })
+    </div>
+
+</form>
+
+
+
+<script>
+    const inputs = document.querySelectorAll("input[name='quantities']");
+
+    function changeQuantity(event) {
+        console.log("changing");
+        let productId = event.target.id;
+        let quantity = event.target.value;
+        let queryParams = "?productId=" + productId + "&quantity=" + quantity;
+        window.location.href = "/Cart/ViewCart" + queryParams;
+    }
+
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].addEventListener("change", changeQuantity);
+        //inputs[i].addEventListener("keyup", changeQuantity);
+    };
+
+
+</script>
