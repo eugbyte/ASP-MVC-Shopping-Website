@@ -1,7 +1,7 @@
 # ASP-MVC-Shopping-Website
 Online e-commerce website in ASP MVC
 
-## Other contributors:  
+## Fellow collaborators:  
 Khine Hsu Wai (dataTable and search bar)  
 Nguyen Viet Dung (route authentication for navbar)  
 Zhao Min (contact form)  
