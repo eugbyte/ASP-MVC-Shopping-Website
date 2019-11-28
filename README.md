@@ -3,7 +3,7 @@ Online e-commerce website in ASP MVC
 
 ## Fellow contributors:  
 Khine Hsu Wai  
-Nguyen Viet Dung 
+Nguyen Viet Dung
 Zhao Min  
 
 ## Guidance before Running the Source Code!!!
