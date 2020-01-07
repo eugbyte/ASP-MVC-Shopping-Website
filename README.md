@@ -1,6 +1,8 @@
 # ASP-MVC-Shopping-Website
 Online e-commerce website in ASP MVC
 
+Click on the video demonstration to view the app!
+
 ## Fellow contributors:  
 Khine Hsu Wai  
 Nguyen Viet Dung
